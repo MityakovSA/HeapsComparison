@@ -4,6 +4,8 @@
 #include <utility>
 #include <vector>
 #include <cmath>
+#include <string>
+#include <iostream>
 
 template <typename T>
 class BinaryHeap
@@ -14,17 +16,20 @@ public:
         int key;
         T data;
 
+        Node() {}
         Node(int key_, const T& data_) : key(key_), data(data_) {}
     };
 
-    friend void merge(BinaryHeap& first, BinaryHeap& second);
+    friend void merge(BinaryHeap<T>& first, BinaryHeap<T>& second);
 
+    BinaryHeap();
     BinaryHeap(const std::size_t& size);
     BinaryHeap(const std::vector<Node>& arr);
 
     Node extractMin();
     void insert(const Node& node);
     std::size_t size() const;
+    void print();
 
 private:
     std::vector<Node> heap;
@@ -33,6 +38,9 @@ private:
     void siftDown(std::size_t i);
     void siftUp(std::size_t i);
 };
+
+template <typename T>
+BinaryHeap<T>::BinaryHeap() {}
 
 template <typename T>
 BinaryHeap<T>::BinaryHeap(const std::size_t& size) : heap(size) {}
@@ -103,6 +111,14 @@ void merge(BinaryHeap<T>& first, BinaryHeap<T>& second)
     for (auto& node : second.heap)
         first.heap.push_back(node);
     first.buildHeap();
+}
+
+template <typename T>
+void BinaryHeap<T>::print()
+{
+    for (auto& value : heap)
+        std::cout << value.key << ":" << value.data << " ";
+    std::cout << std::endl;
 }
 
 #endif //HEAPSCOMPARISON_BINARY_HEAP_HPP
