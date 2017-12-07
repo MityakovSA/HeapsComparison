@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "binary_heap.hpp"
+#include <binary_heap.hpp>
 
 SCENARIO("buildHeap() must create binary heap from random massive")
 {
@@ -7,7 +7,7 @@ SCENARIO("buildHeap() must create binary heap from random massive")
     {
         BinaryHeap::Node node1(10, "abc");
         BinaryHeap::Node node2(-1, "def");
-        BinaryHeap::Node node3(5, "kfs");
+        BinaryHeap::Node node3(5, "kfc");
         BinaryHeap::Node node4(14, "mcs");
         BinaryHeap::Node node5(0, "pvs");
         BinaryHeap::Node node6(-4, "lvs");

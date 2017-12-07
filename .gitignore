@@ -1,7 +1,7 @@
 cmake-build-debug/
 build/
-examples/.DS_Store
 include/.DS_Store
+sources/.DS_Store
 tests/.DS_Store
 .DS_Store
 .idea/

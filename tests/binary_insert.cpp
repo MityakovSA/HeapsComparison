@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "binary_heap.hpp"
+#include <binary_heap.hpp>
 
 SCENARIO("insert() must add node to the heap and do heapify")
 {
