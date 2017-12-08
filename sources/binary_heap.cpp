@@ -1,7 +1,7 @@
 #include <binary_heap.hpp>
 
 
-BinaryHeap::BinaryHeap() {}
+BinaryHeap::BinaryHeap() : heap() {}
 
 BinaryHeap::BinaryHeap(const std::size_t& size) : heap(size) {}
 
@@ -40,6 +40,8 @@ void BinaryHeap::siftUp(std::size_t i)
 
 BinaryHeap::Node BinaryHeap::extractMin()
 {
+    if (heap.empty())
+        throw std::underflow_error("Heap is empty!");
     Node min = heap.at(0);
     heap.at(0) = heap.at(heap.size() - 1);
     heap.pop_back();
@@ -60,12 +62,15 @@ std::size_t BinaryHeap::size() const
 
 void merge(BinaryHeap& first, BinaryHeap& second)
 {
-    for (auto& node : second.heap)
-        first.heap.push_back(node);
-    first.buildHeap();
+    if (second.size())
+    {
+        for (auto& node : second.heap)
+            first.heap.push_back(node);
+        first.buildHeap();
+    }
 }
 
-void BinaryHeap::print()
+void BinaryHeap::print() const
 {
     for (auto& value : heap)
         std::cout << value.key << ":" << value.data << " ";

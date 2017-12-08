@@ -6,6 +6,7 @@
 #include <cmath>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 
 class BinaryHeap
 {
@@ -28,7 +29,7 @@ public:
     Node extractMin();
     void insert(const Node& node);
     std::size_t size() const;
-    void print();
+    void print() const;
 
 private:
     std::vector<Node> heap;
