@@ -1,11 +1,22 @@
 #include <binomial_heap.hpp>
 
+BinomialHeap::Node::Node(int key_, const char* data_) : key(key_), data(data_),
+                                                        degree(0), p(nullptr),
+                                                        child(nullptr), sibling(nullptr) {}
+
+BinomialHeap::Node::~Node()
+{
+    if (this->sibling)
+        delete this->sibling;
+    delete this->child;
+}
+
 BinomialHeap::BinomialHeap() : head(nullptr) {}
 
-Node* BinomialHeap::min() const
+BinomialHeap::Node* BinomialHeap::min() const
 {
     if (!head)
-        throw std::underflow_error("Heap is empty");
+        throw std::underflow_error("Heap is empty!");
     Node* y = head;
     Node* x = head->sibling;
     int min = head->key;
@@ -21,9 +32,55 @@ Node* BinomialHeap::min() const
     return y;
 }
 
+BinomialHeap::Node* BinomialHeap::list_max(Node* cur, Node* max) const
+{
+    while (cur)
+    {
+        if (cur->key > max->key)
+            max = cur;
+        if (cur->child)
+            max = list_max(cur->child, max);
+        cur = cur->sibling;
+    }
+    return max;
+}
+
+BinomialHeap::Node* BinomialHeap::max() const
+{
+    if (!head)
+        throw std::underflow_error("Heap is empty!");
+    Node* max = head;
+    return list_max(head, max);
+}
+
+BinomialHeap::Node* BinomialHeap::list_find(Node *cur, int key) const
+{
+    Node* node = nullptr;
+    while (cur)
+    {
+        if (cur->key == key)
+            return cur;
+        if ((cur->key < key) && cur->child)
+            node = list_find(cur->child, key);
+        if (node)
+            return node;
+        cur = cur->sibling;
+    }
+    return node;
+}
+
+BinomialHeap::Node* BinomialHeap::find(int key) const
+{
+    return list_find(head, key);
+}
 
 void BinomialHeap::merge(BinomialHeap& other)
 {
+    if (!head)
+    {
+        head = other.head;
+        return;
+    }
     BinomialHeap::Node* n1 = head;
     BinomialHeap::Node* n2 = other.head;
     BinomialHeap::Node* n = nullptr;
@@ -70,9 +127,9 @@ void BinomialHeap::link(Node *y, Node *z)
 
 void BinomialHeap::union_with(BinomialHeap &other)
 {
-    merge(other);
+    this->merge(other);
     other.head = nullptr;
-    if (head)
+    if (!head)
         return;
     Node* prev_x = nullptr;
     Node* x = head;
@@ -110,10 +167,10 @@ void BinomialHeap::insert(Node* node)
 {
     BinomialHeap heap;
     heap.head = node;
-    union_with(heap);
+    this->union_with(heap);
 }
 
-Node* BinomialHeap::rotate(Node* head_)
+BinomialHeap::Node* BinomialHeap::rotate(Node* head_)
 {
     if (!head_)
         return nullptr;
@@ -133,9 +190,9 @@ Node* BinomialHeap::rotate(Node* head_)
     return prev;
 }
 
-Node* BinomialHeap::extractMin()
+BinomialHeap::Node* BinomialHeap::extractMin()
 {
-    Node* min = min();
+    Node* min = this->min();
     if (min == head)
     {
         head = min->sibling;
@@ -159,6 +216,37 @@ Node* BinomialHeap::extractMin()
     BinomialHeap heap;
     heap.head = rotate(min->child);
     min->child = nullptr;
-    union_with(heap);
+    this->union_with(heap);
     return min;
+}
+
+void BinomialHeap::decrease_key(Node* x, int k)
+{
+    if (k > x->key)
+        throw std::logic_error("New key is lesser than current");
+    x->key = k;
+    Node* y = x;
+    Node* z = y->p;
+    while (z && (y->key < z->key))
+    {
+        int key_ = y->key;
+        std::string data_ = y->data;
+        y->key = z->key;
+        y->data = z->data;
+        z->key = key_;
+        z->data = data_;
+        y = z;
+        z = y->p;
+    }
+}
+
+void BinomialHeap::delete_node(Node* x)
+{
+    decrease_key(x, -2147483648);
+    this->extractMin();
+}
+
+BinomialHeap::~BinomialHeap()
+{
+    delete head;
 }

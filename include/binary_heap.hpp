@@ -16,8 +16,9 @@ public:
         int key;
         const char* data;
 
-        Node() {}
-        Node(int key_, const char* data_) : key(key_), data(data_) {}
+        Node() = default;
+        Node(int key_, const char* data_);
+        ~Node();
     };
 
     friend void merge(BinaryHeap& first, BinaryHeap& second);

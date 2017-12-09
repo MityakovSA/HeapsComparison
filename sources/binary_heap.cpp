@@ -1,5 +1,11 @@
 #include <binary_heap.hpp>
 
+BinaryHeap::Node::Node(int key_, const char *data_) : key(key_), data(data_) {}
+
+BinaryHeap::Node::~Node()
+{
+    delete[] data;
+}
 
 BinaryHeap::BinaryHeap() : heap() {}
 
