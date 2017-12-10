@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <utility>
 #include <string>
+#include <fstream>
 
 class BinomialHeap
 {
@@ -32,7 +33,7 @@ public:
     void insert(Node* node);
     Node* extract_min();
     void delete_node(Node* x);
-    void print() const;
+    void print(std::ofstream& fout) const;
 
     ~BinomialHeap();
 
@@ -45,7 +46,7 @@ private:
     void merge(BinomialHeap& other);
     Node* rotate(Node* head_);
     void decrease_key(Node* x, int k);
-    void list_print(Node* cur) const;
+    void list_print(Node* cur, std::ofstream& fout) const;
 };
 
 #endif //HEAPSCOMPARISON_BINOMIAL_HEAP_HPP

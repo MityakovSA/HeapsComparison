@@ -245,23 +245,23 @@ void BinomialHeap::delete_node(Node* x)
     this->extract_min();
 }
 
-void BinomialHeap::list_print(Node *cur) const
+void BinomialHeap::list_print(Node *cur, std::ofstream& fout) const
 {
     while (cur)
     {
-        std::cout << cur->key << ":" << cur->data << ":";
+        fout << cur->key << ":" << cur->data << ":";
         if (cur->p)
-            std::cout << cur->p->key;
-        std::cout << " ";
-        list_print(cur->child);
+            fout << cur->p->key;
+        fout << " ";
+        list_print(cur->child, fout);
         cur = cur->sibling;
     }
 }
 
-void BinomialHeap::print() const
+void BinomialHeap::print(std::ofstream& fout) const
 {
-    list_print(head);
-    std::cout << std::endl;
+    list_print(head, fout);
+    fout << std::endl;
 }
 
 BinomialHeap::~BinomialHeap()
