@@ -1,5 +1,7 @@
 #include <binary_heap.hpp>
 #include <binomial_heap.hpp>
+#include <chrono>
+#include <ctime>
 
 bool unspec(int cor2, std::ofstream& fout)
 {
@@ -41,6 +43,9 @@ int main(int argc, char* argv[])
     BinaryHeap heap2;
     BinomialHeap heapC;
     int cor2 = 0;
+
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
 
     while (fin >> com)
     {
@@ -168,6 +173,11 @@ int main(int argc, char* argv[])
         else
             fout << "Unknown command!" << std::endl;
     }
+
+    end = std::chrono::system_clock::now();
+    int elapsed_seconds = std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
+    //std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    fout << "Runtime :" << elapsed_seconds << "us\n";
 
     fin.close();
     fout.close();
