@@ -19,7 +19,7 @@ public:
         Node* sibling;
 
         //Node() = default;
-        Node(int key_, const char* data_);
+        Node(int key_, const std::string& data_);
         ~Node();
     };
 
@@ -30,7 +30,7 @@ public:
     Node* find(int key) const;
     void union_with(BinomialHeap& other);
     void insert(Node* node);
-    Node* extractMin();
+    Node* extract_min();
     void delete_node(Node* x);
     void print() const;
 

@@ -1,44 +1,91 @@
 #include <binary_heap.hpp>
 #include <binomial_heap.hpp>
+#include <fstream>
+//#include <cstring>
 
-int main()
+int main(int argc, char* argv[])
 {
-    BinomialHeap heap;
-    auto n1 = new BinomialHeap::Node(10, "zdfb");
-    auto n2 = new BinomialHeap::Node(2, "awergh");
-    auto n3 = new BinomialHeap::Node(12, "wreb");
-    auto n4 = new BinomialHeap::Node(25, "fhm");
-    auto n5 = new BinomialHeap::Node(18, "SRH");
-    auto n6 = new BinomialHeap::Node(6, "zsrh");
-    auto n7 = new BinomialHeap::Node(8, "sdfghnm");
-    auto n8 = new BinomialHeap::Node(14, "cvbnhj");
-    auto n9 = new BinomialHeap::Node(29, "wedfg");
-    auto n10 = new BinomialHeap::Node(11, "werg");
-    auto n11 = new BinomialHeap::Node(17, "werthjk");
-    auto n12 = new BinomialHeap::Node(38, "oijhg");
-    auto n13 = new BinomialHeap::Node(27, "mkiuyt");
-    heap.insert(n1);
-    heap.insert(n2);
-    heap.insert(n3);
-    heap.insert(n4);
-    heap.insert(n5);
-    heap.insert(n6);
-    heap.insert(n7);
-    heap.insert(n8);
-    heap.insert(n9);
-    heap.insert(n10);
-    heap.insert(n11);
-    heap.insert(n12);
-    heap.insert(n13);
+    if (argc < 3)
+    {
+        std::cout << "Wrong number of arguments!" << std::endl;
+        return 0;
+    }
 
-    std::cout << heap.min()->key << " " << heap.max()->key << std::endl;
-    std::cout << heap.find(17)->data << std::endl;
-    heap.print();
-    std::cout << heap.extractMin()->key << std::endl;
-    heap.print();
-    heap.delete_node(heap.find(11));
-    heap.print();
+    std::string com;
+    int key;
+    std::string data;
+    std::ifstream fin(argv[1]);
+    if (!fin.is_open())
+    {
+        std::cout << "File " << argv[1] << " isn't exist!" << std::endl;
+        return 0;
+    }
 
-    std::cout << "Lest's compare!" << std::endl;
+    BinomialHeap heapC;
+    int cor2 = 0;
+
+    while (fin >> com)
+    {
+        if (com == "binary")
+            cor2 = 1;
+        else if (com == "binomial")
+            cor2 = 2;
+        else if (com == "insert")
+        {
+            if (!cor2)
+            {
+                std::cout << "Heap type wasn't specified!" << std::endl;
+                return 0;
+            }
+            fin >> key;
+            fin >> data;
+            auto node = new BinomialHeap::Node(key, data);
+            heapC.insert(node);
+        }
+        else if (com == "print")
+            heapC.print();
+        else if (com == "min")
+            std::cout << heapC.min()->data << std::endl;
+        else if (com == "max")
+            std::cout << heapC.max()->data << std::endl;
+        else if (com == "find")
+        {
+            fin >> key;
+            auto node = heapC.find(key);
+            if (node)
+                std::cout << heapC.find(key)->data << std::endl;
+            else
+                std::cout << "Key not found!" << std::endl;
+        }
+        else if (com == "extract_min")
+        {
+            try
+            {
+                std::cout << "Extracted: " << heapC.extract_min()->key << std::endl;
+            }
+            catch (std::underflow_error& error)
+            {
+                std::cout << error.what() << std::endl;
+            }
+        }
+        else if (com == "delete")
+        {
+            fin >> key;
+            auto node = heapC.find(key);
+            if (node)
+            {
+                heapC.delete_node(node);
+            }
+            else
+            {
+                std::cout << "There is no node with such key!" << std::endl;
+            }
+        }
+        else
+            std::cout << "Unknown command!" << std::endl;
+    }
+
+    fin.close();
+
     return 0;
 }

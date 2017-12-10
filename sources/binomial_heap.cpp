@@ -1,6 +1,6 @@
 #include <binomial_heap.hpp>
 
-BinomialHeap::Node::Node(int key_, const char* data_) : key(key_), data(data_),
+BinomialHeap::Node::Node(int key_, const std::string& data_) : key(key_), data(data_),
                                                         degree(0), p(nullptr),
                                                         child(nullptr), sibling(nullptr) {}
 
@@ -189,7 +189,7 @@ BinomialHeap::Node* BinomialHeap::rotate(Node* head_)
     return prev;
 }
 
-BinomialHeap::Node* BinomialHeap::extractMin()
+BinomialHeap::Node* BinomialHeap::extract_min()
 {
     Node* min = this->min();
     if (min == head)
@@ -242,7 +242,7 @@ void BinomialHeap::decrease_key(Node* x, int k)
 void BinomialHeap::delete_node(Node* x)
 {
     decrease_key(x, -2147483648);
-    this->extractMin();
+    this->extract_min();
 }
 
 void BinomialHeap::list_print(Node *cur) const
