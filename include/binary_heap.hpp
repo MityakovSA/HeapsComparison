@@ -5,8 +5,8 @@
 #include <vector>
 #include <cmath>
 #include <string>
-#include <iostream>
 #include <stdexcept>
+#include <fstream>
 
 class BinaryHeap
 {
@@ -14,30 +14,33 @@ public:
     struct Node
     {
         int key;
-        const char* data;
+        std::string data;
 
-        Node() = default;
-        Node(int key_, const char* data_);
-        ~Node();
+        Node(int key_, const std::string& data_);
     };
 
-    friend void merge(BinaryHeap& first, BinaryHeap& second);
-
     BinaryHeap();
-    BinaryHeap(const std::size_t& size);
-    BinaryHeap(const std::vector<Node>& arr);
+    explicit BinaryHeap(const std::vector<Node*>& arr);
 
-    Node extractMin();
-    void insert(const Node& node);
-    std::size_t size() const;
-    void print() const;
+    Node* min() const;
+    Node* max() const;
+    Node* find(int key) const;
+    int find_i(int key) const;
+    Node* extractMin();
+    void insert(Node* node);
+    void print(std::ofstream& fout) const;
+    void merge(BinaryHeap& second);
+    void deleteNode(size_t);
+
+    ~BinaryHeap();
 
 private:
-    std::vector<Node> heap;
+    std::vector<Node*> heap;
 
     void buildHeap();
     void siftDown(std::size_t i);
     void siftUp(std::size_t i);
+    void decreaseKey(size_t , int key);
 };
 
 #endif //HEAPSCOMPARISON_BINARY_HEAP_HPP
