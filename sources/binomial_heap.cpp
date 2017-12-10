@@ -6,8 +6,7 @@ BinomialHeap::Node::Node(int key_, const char* data_) : key(key_), data(data_),
 
 BinomialHeap::Node::~Node()
 {
-    if (this->sibling)
-        delete this->sibling;
+    delete this->sibling;
     delete this->child;
 }
 
@@ -244,6 +243,25 @@ void BinomialHeap::delete_node(Node* x)
 {
     decrease_key(x, -2147483648);
     this->extractMin();
+}
+
+void BinomialHeap::list_print(Node *cur) const
+{
+    while (cur)
+    {
+        std::cout << cur->key << ":" << cur->data << ":";
+        if (cur->p)
+            std::cout << cur->p->key;
+        std::cout << " ";
+        list_print(cur->child);
+        cur = cur->sibling;
+    }
+}
+
+void BinomialHeap::print() const
+{
+    list_print(head);
+    std::cout << std::endl;
 }
 
 BinomialHeap::~BinomialHeap()

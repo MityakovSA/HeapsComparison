@@ -30,6 +30,15 @@ int main()
     heap.insert(n11);
     heap.insert(n12);
     heap.insert(n13);
+
+    std::cout << heap.min()->key << " " << heap.max()->key << std::endl;
+    std::cout << heap.find(17)->data << std::endl;
+    heap.print();
+    std::cout << heap.extractMin()->key << std::endl;
+    heap.print();
+    heap.delete_node(heap.find(11));
+    heap.print();
+
     std::cout << "Lest's compare!" << std::endl;
     return 0;
 }

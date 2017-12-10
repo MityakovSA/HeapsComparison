@@ -32,6 +32,7 @@ public:
     void insert(Node* node);
     Node* extractMin();
     void delete_node(Node* x);
+    void print() const;
 
     ~BinomialHeap();
 
@@ -44,6 +45,7 @@ private:
     void merge(BinomialHeap& other);
     Node* rotate(Node* head_);
     void decrease_key(Node* x, int k);
+    void list_print(Node* cur) const;
 };
 
 #endif //HEAPSCOMPARISON_BINOMIAL_HEAP_HPP
