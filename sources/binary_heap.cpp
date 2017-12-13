@@ -63,15 +63,17 @@ void BinaryHeap::merge(BinaryHeap& second)
             heap.push_back(node);
         }
         this->buildHeap();
-        for (auto i = 0; i < second.heap.size(); i++)
-        {
-            second.heap.at(i) = nullptr;
-        }
+        second.heap.clear();
     }
 }
 
 void BinaryHeap::print(std::ofstream& fout) const
 {
+    if (heap.empty())
+    {
+        fout << std::endl;
+        return;
+    }
     for (auto node : heap)
         fout << node->key << ":" << node->data << " ";
     fout << std::endl;

@@ -1,0 +1,27 @@
+binary
+insert 1 10 zdfb
+insert 1 2 awergh
+insert 1 12 wreb
+insert 1 25 fhm
+insert 1 18 SRH
+insert 1 6 zsrh
+insert 2 8 sdfghnm
+insert 2 14 cvbnhj
+insert 2 29 wedfg
+insert 2 11 werg
+insert 2 17 werthjk
+insert 2 38 oijhg
+insert 2 27 mkiuyt
+min 1
+max 1
+min 2
+max 2
+find 1 12
+find 1 14
+find 2 29
+find 2 25
+print 1
+print 2
+merge
+print 1
+print 2
