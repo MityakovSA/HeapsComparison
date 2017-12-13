@@ -44,6 +44,13 @@ SCENARIO("merge() must combine two heaps into one with main rule reservation")
                 REQUIRE_THROWS_AS(heap1.extractMin(), std::underflow_error&);
             }
         }
+        delete node1;
+        delete node2;
+        delete node3;
+        delete node4;
+        delete node5;
+        delete node6;
+        delete node7;
     }
     GIVEN("1 - empty, 2 - filled")
     {
@@ -73,6 +80,13 @@ SCENARIO("merge() must combine two heaps into one with main rule reservation")
                 REQUIRE_THROWS_AS(heap1.extractMin(), std::underflow_error&);
             }
         }
+        delete node1;
+        delete node2;
+        delete node3;
+        delete node4;
+        delete node5;
+        delete node6;
+        delete node7;
     }
     GIVEN("Filled heaps")
     {
@@ -95,5 +109,6 @@ SCENARIO("merge() must combine two heaps into one with main rule reservation")
                 REQUIRE(heap1.extractMin()->data == "lvs");
             }
         }
+        delete node6;
     }
 }

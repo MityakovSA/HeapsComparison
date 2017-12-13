@@ -28,11 +28,13 @@ SCENARIO("extractMin() extract min node from the heap and restore binary heap's 
         BinaryHeap heap(arr);
         WHEN("Extracting min node")
         {
+            auto node = heap.extractMin();
             THEN("Method must delete min node from the heap, restore heap's rule and return min node")
             {
-                REQUIRE(heap.extractMin()->data == "lvs");
-                REQUIRE(heap.extractMin()->data == "def");
+                REQUIRE(node->data == "lvs");
+                REQUIRE(heap.find(-4) == nullptr);
             }
+            delete node;
         }
     }
 }

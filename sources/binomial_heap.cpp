@@ -126,6 +126,8 @@ void BinomialHeap::link(Node *y, Node *z)
 
 void BinomialHeap::union_with(BinomialHeap &other)
 {
+    if (!other.head)
+        return;
     this->merge(other);
     other.head = nullptr;
     if (!head)

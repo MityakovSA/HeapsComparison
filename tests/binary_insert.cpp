@@ -35,9 +35,10 @@ SCENARIO("insert() must add node to the heap and do heapify")
             THEN("Node must be on the correct place")
             {
                 for (auto i = 0; i < 3; i++)
-                    heap.extractMin();
+                    delete heap.extractMin();
                 REQUIRE(heap.extractMin()->data == "!!!");
             }
         }
+        delete node;
     }
 }
