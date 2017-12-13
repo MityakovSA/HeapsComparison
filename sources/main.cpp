@@ -177,7 +177,7 @@ int main(int argc, char* argv[])
     end = std::chrono::system_clock::now();
     int elapsed_seconds = std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
     //std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-    fout << "Runtime :" << elapsed_seconds << "us\n";
+    fout << "Runtime: " << elapsed_seconds << "us\n";
 
     fin.close();
     fout.close();
