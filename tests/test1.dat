@@ -1,22 +1,22 @@
 binary
-insert 10 zdfb
-insert 2 awergh
-insert 12 wreb
-insert 25 fhm
-insert 18 SRH
-insert 6 zsrh
-insert 8 sdfghnm
-insert 14 cvbnhj
-insert 29 wedfg
-insert 11 werg
-insert 17 werthjk
-insert 38 oijhg
-insert 27 mkiuyt
-min
-max
-find 17
-print
-extract_min
-print
-delete 11
-print
+insert 1 10 zdfb
+insert 1 2 awergh
+insert 1 12 wreb
+insert 1 25 fhm
+insert 1 18 SRH
+insert 1 6 zsrh
+insert 1 8 sdfghnm
+insert 1 14 cvbnhj
+insert 1 29 wedfg
+insert 1 11 werg
+insert 1 17 werthjk
+insert 1 38 oijhg
+insert 1 27 mkiuyt
+min 1
+max 1
+find 1 17
+print 1
+extract_min 1
+print 1
+delete 1 11
+print 1

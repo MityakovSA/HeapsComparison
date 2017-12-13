@@ -37,11 +37,12 @@ int main(int argc, char* argv[])
     std::ofstream fout(nout);
 
     std::string com;
+    int which;
     int key;
     std::string data;
 
-    BinaryHeap heap2;
-    BinomialHeap heapC;
+    BinaryHeap heaps2[2];
+    BinomialHeap heapsC[2];
     int cor2 = 0;
 
     std::chrono::time_point<std::chrono::system_clock> start, end;
@@ -57,38 +58,41 @@ int main(int argc, char* argv[])
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             fin >> key;
             fin >> data;
             if (cor2 == 1)
             {
                 auto node = new BinaryHeap::Node(key, data);
-                heap2.insert(node);
+                heaps2[which-1].insert(node);
             }
             if (cor2 == 2)
             {
                 auto node = new BinomialHeap::Node(key, data);
-                heapC.insert(node);
+                heapsC[which-1].insert(node);
             }
         }
         else if (com == "print")
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             if (cor2 == 1)
-                heap2.print(fout);
+                heaps2[which-1].print(fout);
             if (cor2 == 2)
-                heapC.print(fout);
+                heapsC[which-1].print(fout);
         }
         else if (com == "min")
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             try
             {
                 if (cor2 == 1)
-                    fout << heap2.min()->data << std::endl;
+                    fout << heaps2[which-1].min()->data << std::endl;
                 if (cor2 == 2)
-                    fout << heapC.min()->data << std::endl;
+                    fout << heapsC[which-1].min()->data << std::endl;
             }
             catch (std::underflow_error& error)
             {
@@ -99,12 +103,13 @@ int main(int argc, char* argv[])
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             try
             {
                 if (cor2 == 1)
-                    fout << heap2.max()->data << std::endl;
+                    fout << heaps2[which-1].max()->data << std::endl;
                 if (cor2 == 2)
-                    fout << heapC.max()->data << std::endl;
+                    fout << heapsC[which-1].max()->data << std::endl;
             }
             catch (std::underflow_error &error) {
                 fout << error.what() << std::endl;
@@ -114,10 +119,11 @@ int main(int argc, char* argv[])
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             fin >> key;
             if (cor2 == 1)
             {
-                auto node = heap2.find(key);
+                auto node = heaps2[which-1].find(key);
                 if (node)
                     fout << "Found: " << node->data << std::endl;
                 else
@@ -125,7 +131,7 @@ int main(int argc, char* argv[])
             }
             if (cor2 == 2)
             {
-                auto node = heapC.find(key);
+                auto node = heapsC[which-1].find(key);
                 if (node)
                     fout << "Found: " << node->data << std::endl;
                 else
@@ -136,12 +142,21 @@ int main(int argc, char* argv[])
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             try
             {
                 if (cor2 == 1)
-                    fout << "Extracted: " << heap2.extractMin()->key << std::endl;
+                {
+                    auto min = heaps2[which - 1].extractMin();
+                    fout << "Extracted: " << min->key << std::endl;
+                    delete min;
+                }
                 if (cor2 == 2)
-                    fout << "Extracted: " << heapC.extract_min()->key << std::endl;
+                {
+                    auto min = heapsC[which - 1].extract_min();
+                    fout << "Extracted: " << min->key << std::endl;
+                    delete min;
+                }
             }
             catch (std::underflow_error& error)
             {
@@ -152,23 +167,33 @@ int main(int argc, char* argv[])
         {
             if (unspec(cor2, fout))
                 return 0;
+            fin >> which;
             fin >> key;
             if (cor2 == 1)
             {
-                auto i = heap2.find_i(key);
+                auto i = heaps2[which-1].find_i(key);
                 if (i != -1)
-                    heap2.deleteNode(i);
+                    heaps2[which-1].deleteNode(i);
                 else
                     fout << "There is no node with such key!" << std::endl;
             }
             if (cor2 == 2)
             {
-                auto node = heapC.find(key);
+                auto node = heapsC[which-1].find(key);
                 if (node)
-                    heapC.delete_node(node);
+                    heapsC[which-1].delete_node(node);
                 else
                     fout << "There is no node with such key!" << std::endl;
             }
+        }
+        else if (com == "merge")
+        {
+            if (unspec(cor2, fout))
+                return 0;
+            if (cor2 == 1)
+                heaps2[0].merge(heaps2[1]);
+            if (cor2 == 2)
+                heapsC[0].union_with(heapsC[1]);
         }
         else
             fout << "Unknown command!" << std::endl;
