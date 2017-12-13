@@ -242,7 +242,7 @@ void BinomialHeap::decrease_key(Node* x, int k)
 void BinomialHeap::delete_node(Node* x)
 {
     decrease_key(x, -2147483648);
-    this->extract_min();
+    delete this->extract_min();
 }
 
 void BinomialHeap::list_print(Node *cur, std::ofstream& fout) const

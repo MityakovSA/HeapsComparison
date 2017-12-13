@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
             {
                 auto node = heap2.find(key);
                 if (node)
-                    fout << "Found: " <<  node->data << std::endl;
+                    fout << "Found: " << node->data << std::endl;
                 else
                     fout << "Key not found!" << std::endl;
             }
@@ -127,7 +127,7 @@ int main(int argc, char* argv[])
             {
                 auto node = heapC.find(key);
                 if (node)
-                    fout << node->data << std::endl;
+                    fout << "Found: " << node->data << std::endl;
                 else
                     fout << "Key not found!" << std::endl;
             }

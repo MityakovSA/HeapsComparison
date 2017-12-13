@@ -124,7 +124,7 @@ void BinaryHeap::deleteNode(size_t i)
     if (heap.empty())
         throw std::underflow_error("Heap is empty!");
     this->decreaseKey(i, -2147483648);
-    this->extractMin();
+    delete this->extractMin();
 }
 
 BinaryHeap::~BinaryHeap()
