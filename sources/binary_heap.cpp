@@ -125,8 +125,19 @@ void BinaryHeap::deleteNode(size_t i)
 {
     if (heap.empty())
         throw std::underflow_error("Heap is empty!");
-    this->decreaseKey(i, -2147483648);
-    delete this->extractMin();
+    /*this->decreaseKey(i, -2147483648);
+    delete this->extractMin();*/
+    if (i == heap.size()-1)
+    {
+        delete heap.at(i);
+        heap.pop_back();
+        return;
+    }
+    std::swap(heap.at(i), heap.at(heap.size()-1));
+    delete heap.at(heap.size()-1);
+    heap.pop_back();
+    this->siftUp(i);
+    this->siftDown(i);
 }
 
 BinaryHeap::~BinaryHeap()
